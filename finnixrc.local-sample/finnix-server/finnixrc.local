@@ -1,0 +1,27 @@
+hostname server
+
+mount $FINNIX_PROFILE/etc/network /etc/network -o bind
+ifdown eth0
+ifup eth0
+ifdown eth1
+ifup eth1
+
+# Halas, finnix' ifup does not touch /etc/resolv.conf
+cat >/etc/resolv.conf <<EOF
+domain MYDOMAIN
+search MYDOMAIN
+nameserver 192.168.1.1
+EOF
+
+mount $FINNIX_PROFILE/root /root -o bind
+mount $FINNIX_PROFILE/etc/ssh /etc/ssh -o bind
+service ssh restart
+
+( cd / ; ln -s srv/tftp tftpboot )
+mount $FINNIX_PROFILE/srv/tftp /srv/tftp -o bind
+service tftpd-hpa restart
+
+mount $FINNIX_PROFILE/etc/dhcp /etc/dhcp -o rbind
+service isc-dhcp-server restart
+
+mount $FINNIX_PROFILE/etc/minicom /etc/minicom -o bind

@@ -1,0 +1,11 @@
+SUFFIX=-srisa
+FINNIX_ISO=$TOPDIR/finnix-autoboot.iso
+DISK_SDA=sda
+# in MB
+DISK_SDA_SIZE=4096
+# 2GB is unsufficient for two opendingux toolchains
+SET_TIMESTAMP=yes
+
+KVM=qemu
+KVM=kvm
+KVM_OUTPUT="-vnc :0"

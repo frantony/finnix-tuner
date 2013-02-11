@@ -1,0 +1,18 @@
+#!/bin/sh
+
+echo
+echo
+echo "add skipfinnixrc to cmdline to stop the finnixrc.local script"
+echo
+echo
+
+if grep skipfinnixrc /proc/cmdline >/dev/null; then
+	echo "skipping finnixrc.local"
+	exit 0
+fi
+
+FINNIX_PROFILE=finnix-server
+
+. $FINNIX_PROFILE/finnixrc.local
+
+exit 0
